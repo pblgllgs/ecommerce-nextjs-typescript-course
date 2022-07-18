@@ -1,19 +1,10 @@
 import { Todo } from "../../../interfaces/todo";
+import getAllProductsQuery from '../utils/queries/get-all-products';
+import fetchApi from '../utils/fetch-api';
 
-const fetchApi = async () => {
-    const url = 'https://jsonplaceholder.typicode.com/todos';
-    const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    const data = await res.json()
-    return { data };
-}
 
 const getAllProducts = async (): Promise<Todo[]> => {
-    const products = await fetchApi();
+    const products = await fetchApi({ query: getAllProductsQuery });
     return products.data;
 }
 

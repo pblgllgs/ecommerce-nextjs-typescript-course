@@ -8,33 +8,29 @@ import { FC } from 'react';
 import getAllProducts from '../framework/shopify/product/get-all-products';
 import { Todo } from '../interfaces/todo';
 
+interface Props {
+    products: Todo[];
+}
+
+const Home: FC<Props> = ({ products }) => {
+    console.log(products);
+    return (
+        <div>
+            <ul>
+                {JSON.stringify(products)}
+            </ul>
+        </div>
+    );
+};
+
 export const getStaticProps: GetStaticProps = async (ctx) => {
     const products = await getAllProducts();
-
     return {
         props: {
             products,
         },
         revalidate: 4 * 60 * 60,
     };
-};
-
-interface Props {
-    products: Todo[];
-}
-
-const Home: FC<Props> = ({ products }) => {
-    return (
-        <div>
-            <ul>
-                {products.map((item) => (
-                    <li key={item.id}>
-                        {item.title} {item.userId}  
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
 };
 
 export default Home;

@@ -1,15 +1,38 @@
 const path = require('path');
+const fs = require('fs');
 const merge = require('deepmerge');
+const prettier = require('prettier');
+
+const ALLOWED_FW = ["shopify","bigcommerce","shopify_local"];
+const FALLBACK_FW = "shopify";
 
 function withFrameworkConfig(defaultConfig = {}) {
-    const framework = 'shopify';
+    let framework = defaultConfig?.framework?.name;
+    if(!framework) {
+        throw new Error("framework.name is required, e.g. 'shopify' add in config.js");
+    }
+    if(!ALLOWED_FW.includes(framework)) {
+        throw new Error(`framework must be one of ["${ALLOWED_FW.join(', ')}"], but got "${framework}")`);
+    }
+    if(framework === "shopify_local"){
+        framework = FALLBACK_FW;
+    }
     const frameworkNextConfig = require(path.join(
         '../',
         framework,
         'next.config'
     ));
     const config = merge(defaultConfig, frameworkNextConfig);
-
+    const tsPath = path.join(process.cwd(), 'tsconfig.json');
+    // const tsConfig = require(tsPath);
+    // tsConfig.compilerOptions.paths['@framework'] = [`framework/${framework}`];
+    // tsConfig.compilerOptions.paths['@framework/*'] = [
+    //     `framework/${framework}/*`,
+    // ];
+    // fs.writeFileSync(
+    //     tsPath,
+    //     prettier.format(JSON.stringify(tsConfig, null, 2))
+    // );
     return config;
 }
 

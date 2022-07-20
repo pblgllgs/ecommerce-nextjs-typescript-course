@@ -1,13 +1,14 @@
 import { GetStaticProps } from 'next';
 import getAllProducts from '@framework/product/get-all-products';
 import type { InferGetStaticPropsType } from 'next';
+import { Layout } from '@components/common';
 import { getConfig } from '../framework/shopify/api/config';
 
-const Home = ({ products }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const HomePage = ({ products }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
-        <div>
+        <Layout>
             {JSON.stringify(products)}
-        </div>
+        </Layout>
     );
 };
 
@@ -27,4 +28,4 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     };
 };
 
-export default Home;
+export default HomePage;

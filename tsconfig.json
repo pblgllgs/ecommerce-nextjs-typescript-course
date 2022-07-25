@@ -25,6 +25,7 @@
       "@framework":["framework/shopify"],
       "@framework/*":["framework/shopify/*"],
       "@components/*":["components/*"],
+      "@assets/*":["assets/*"],
     }
   },
   "include": [

@@ -1,13 +1,24 @@
 import { GetStaticProps } from 'next';
 import getAllProducts from '@framework/product/get-all-products';
-import type { InferGetStaticPropsType } from 'next';
-import { Layout } from '@components/common';
 import { getConfig } from '../framework/shopify/api/config';
+import { Layout } from '@components/common';
+import { ProductCard } from '@components/product';
+import { FC } from 'react';
+import { Product } from '@common/types/product';
+import { Grid } from '@components/ui';
 
-const HomePage = ({ products }: InferGetStaticPropsType<typeof getStaticProps>) => {
+interface Props {
+    products: Product[];
+}
+
+const HomePage: FC<Props> = ({ products }) => {
     return (
         <Layout>
-            {JSON.stringify(products)}
+            <Grid>
+                {products.slice(0, 3).map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                ))}
+            </Grid>
         </Layout>
     );
 };

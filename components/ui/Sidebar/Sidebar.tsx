@@ -12,27 +12,27 @@ interface Props {
 }
 
 const Sidebar: FC<Props> = ({ children, isOpen, onClose }) => {
-    // const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
+    const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
-    // useEffect(() => {
-    //     if (ref.current) {
-    //         if (isOpen) {
-    //             disableBodyScroll(ref.current);
-    //         } else {
-    //             enableBodyScroll(ref.current);
-    //         }
-    //     }
+    useEffect(() => {
+        if (ref.current) {
+            if (isOpen) {
+                disableBodyScroll(ref.current);
+            } else {
+                enableBodyScroll(ref.current);
+            }
+        }
 
-    //     return () => {
-    //         clearAllBodyScrollLocks();
-    //     };
-    // }, [isOpen]);
+        return () => {
+            clearAllBodyScrollLocks();
+        };
+    }, [isOpen]);
 
     return (
         <>
             {isOpen ? (
                 <div
-                    // ref={ref}
+                    ref={ref}
                     className="fixed inset-0 overflow-hidden h-full z-50"
                 >
                     <div className="absolute inset-0 overflow-hidden">

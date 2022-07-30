@@ -1,11 +1,11 @@
 import { GetStaticProps } from 'next';
-import getAllProducts from '@framework/product/get-all-products';
-import { getConfig } from '../framework/shopify/api/config';
+import { getAllProducts } from '@framework/product';
 import { Layout } from '@components/common';
 import { ProductCard } from '@components/product';
 import { FC } from 'react';
 import { Product } from '@common/types/product';
 import { Grid, Hero, Marquee } from '@components/ui';
+import { getConfig } from '@framework/api/config';
 
 interface Props {
     products: Product[];
@@ -37,7 +37,7 @@ const HomePage: FC<Props> = ({ products }) => {
                     <ProductCard key={product.id} product={product} />
                 ))}
             </Grid>
-            <Marquee variant='secondary'>
+            <Marquee variant="secondary">
                 {products.slice(0, 3).map((product) => (
                     <ProductCard
                         variant="slim"

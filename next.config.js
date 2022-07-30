@@ -6,10 +6,10 @@ const nextConfig = withFrameworkConfig({
     framework:{
         name: "shopify",
     },
-    i18n: {
-        locales: ['en', 'es'],
-        defaultLocale: 'en',
-    },
+    // i18n: {
+    //     locales: ['en', 'es'],
+    //     defaultLocale: 'en',
+    // },
 });
 
 module.exports = nextConfig;

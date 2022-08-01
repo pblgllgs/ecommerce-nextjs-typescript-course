@@ -1,5 +1,6 @@
 import { Product } from '@common/types/product';
 import { Layout } from '@components/common';
+import { ProductView } from '@components/product';
 import { getConfig } from '@framework/api/config';
 import { getAllProductsPaths, getProduct } from '@framework/product';
 import { GetStaticPaths, GetStaticPropsContext } from 'next';
@@ -12,9 +13,7 @@ interface Props {
 const ProductSlug: FC<Props> = ({ product }) => {
     return (
         <Layout>
-            <h1>
-                {product.slug} - {product.name} - {product.price.value} - {product.price.currencyCode}
-            </h1>
+            <>{product && <ProductView product={product} />}</>
         </Layout>
     );
 };

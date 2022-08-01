@@ -11,11 +11,7 @@ interface Props {
 }
 
 const ProductSlug: FC<Props> = ({ product }) => {
-    return (
-        <Layout>
-            <>{product && <ProductView product={product} />}</>
-        </Layout>
-    );
+    return <Layout>{product && <ProductView product={product} />}</Layout>;
 };
 
 export default ProductSlug;

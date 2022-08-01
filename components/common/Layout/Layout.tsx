@@ -3,7 +3,7 @@ import s from './Layout.module.css';
 import { Footer, Navbar } from '@components/common';
 import { CartSidebar } from '@components/cart';
 import { useUI } from '@components/ui/context';
-import Sidebar from '../../ui/Sidebar/Sidebar';
+import { Sidebar } from '@components/ui';
 
 interface Props {
     children: ReactNode;

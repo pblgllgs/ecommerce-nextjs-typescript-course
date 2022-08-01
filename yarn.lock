@@ -1468,10 +1468,10 @@ jsonfile@^6.0.1:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-keen-slider@^5.5.1:
-  version "5.5.1"
-  resolved "https://registry.npmjs.org/keen-slider/-/keen-slider-5.5.1.tgz"
-  integrity sha512-QXGZGt5Hbe0YufR/RYbOG03MmOk43RQEXqkkSvjr8ZS67sVR7LRp5RIvJALfjl+A7BnHNr1wd1QBOemwy65Lfw==
+keen-slider@^6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-6.7.0.tgz#06a9c21cca34817031f2f15092874a7d606f4ae1"
+  integrity sha512-tsxUE2PXCRQZcZsLmFY5S4UK0yStQd9Dw/qnH57RyXDTUr3XMDhoAOkPbOQT68lGNSpghBcEftPfcgggYoHFTA==
 
 lilconfig@^2.0.5:
   version "2.0.6"

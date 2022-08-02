@@ -1,37 +1,30 @@
 import React, { FC, Children, isValidElement, useState } from 'react';
-import { useKeenSlider } from 'keen-slider/react';
 import s from './ProductSlider.module.css';
-import cn from "classnames"
+import { useKeenSlider } from 'keen-slider/react';
+import cn from 'classnames';
 
-interface Props {
-    children: React.ReactNode;
-}
-
-const ProductSlider: FC<Props> = ({ children }) => {
+const ProductSlider: FC = ({ children }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [loaded, setLoaded] = useState(false);
-    const [sliderRef, instanceRef] = useKeenSlider({
+    const [sliderRef, slider] = useKeenSlider({
         initial: 0,
         loop: true,
-        slideChanged(slider) {
-            setCurrentSlide(slider.track.details.rel);
-        },
-        created() {
-            setLoaded(true);
+        slideChanged(s) {
+            setCurrentSlide(s.details().relativeSlide);
         },
     });
+
     return (
         <div className={s.root}>
             <div
-                ref={sliderRef}
+                ref={sliderRef as React.RefObject<HTMLDivElement>}
                 className="keen-slider h-full transition-opacity"
             >
                 <button
-                    onClick={() => instanceRef?.current.prev()}
+                    onClick={slider?.prev}
                     className={cn(s.leftControl, s.control)}
                 />
                 <button
-                    onClick={() => instanceRef?.current.next()}
+                    onClick={slider?.next}
                     className={cn(s.rightControl, s.control)}
                 />
                 {Children.map(children, (child) => {
@@ -47,7 +40,14 @@ const ProductSlider: FC<Props> = ({ children }) => {
                                 } keen-slider__slide`,
                             },
                         };
+
+                        // return React.cloneElement(child, {
+                        //   className: `${
+                        //     child.props.className ? `${child.props.className}` : ""
+                        //   } keen-slider__slide`
+                        // })
                     }
+
                     return child;
                 })}
             </div>

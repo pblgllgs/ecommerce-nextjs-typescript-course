@@ -10,7 +10,7 @@ export interface ProductPrice {
 
 export interface ProductOptionValues {
     label: string;
-    hexcolor?: string;
+    hexColor?: string;
 }
 
 export interface ProductOption{

@@ -30,7 +30,7 @@ const normalizeProductOption = ({
             if (displayName.match(/colou?r/gi)) {
                 output = {
                     ...output,
-                    hexaColor: value
+                    hexColor: value
                 }
             }
             return output;

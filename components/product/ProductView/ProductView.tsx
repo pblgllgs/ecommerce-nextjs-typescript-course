@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Product } from '@common/types/product';
 import { ProductSlider } from '@components/product';
 import Swatch from '../Swatch/Swatch';
+import Slider from '../ProductSlider/Slider';
 
 interface Props {
     product: Product;
@@ -31,20 +32,7 @@ const ProductView: FC<Props> = ({ product }) => {
                             {product.price.currencyCode}
                         </div>
                     </div>
-                    <ProductSlider>
-                        {product.images.map((image) => (
-                            <div key={image.url} className={s.imageContainer}>
-                                <Image
-                                    className={s.img}
-                                    src={image.url}
-                                    alt={image.alt}
-                                    width={1050}
-                                    height={1050}
-                                    quality="85"
-                                />
-                            </div>
-                        ))}
-                    </ProductSlider>
+                    <Slider productsImages={product.images} />
                 </div>
                 <div className={s.sidebar}>
                     <section>
@@ -55,14 +43,20 @@ const ProductView: FC<Props> = ({ product }) => {
                                 </h2>
                                 <div className="flex flex-row py-4">
                                     {option.values.map((optValue) => {
-                                        const activeChoice = choices[option.displayName.toLowerCase()]
+                                        const activeChoice =
+                                            choices[
+                                                option.displayName.toLowerCase()
+                                            ];
                                         return (
                                             <Swatch
                                                 key={`${option.id}-${optValue.label}`}
                                                 label={optValue.label}
                                                 color={optValue.hexColor}
                                                 variant={option.displayName}
-                                                active={optValue.label.toLowerCase() === activeChoice}
+                                                active={
+                                                    optValue.label.toLowerCase() ===
+                                                    activeChoice
+                                                }
                                                 onClick={() => {
                                                     setChoices({
                                                         ...choices,

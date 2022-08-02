@@ -1,9 +1,13 @@
 import React, { FC, Children, isValidElement, useState } from 'react';
-import s from './ProductSlider.module.css';
 import { useKeenSlider } from 'keen-slider/react';
-import cn from 'classnames';
+import s from './ProductSlider.module.css';
+import cn from "classnames"
 
-const ProductSlider: FC = ({ children }) => {
+interface Props {
+    children: React.ReactNode;
+}
+
+const ProductSlider: FC<Props> = ({ children }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [sliderRef, slider] = useKeenSlider({
         initial: 0,
@@ -12,7 +16,6 @@ const ProductSlider: FC = ({ children }) => {
             setCurrentSlide(s.details().relativeSlide);
         },
     });
-
     return (
         <div className={s.root}>
             <div

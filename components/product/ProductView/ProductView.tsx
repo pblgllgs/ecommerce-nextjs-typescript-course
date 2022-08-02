@@ -56,7 +56,6 @@ const ProductView: FC<Props> = ({ product }) => {
                                 <div className="flex flex-row py-4">
                                     {option.values.map((optValue) => {
                                         const activeChoice = choices[option.displayName.toLowerCase()]
-                                        console.log(activeChoice);
                                         return (
                                             <Swatch
                                                 key={`${option.id}-${optValue.label}`}

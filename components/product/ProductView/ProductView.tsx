@@ -2,24 +2,34 @@ import cn from 'classnames';
 import { FC, useState } from 'react';
 import s from './ProductView.module.css';
 import { Button, Container } from '@components/ui';
-import Image from 'next/image';
 import { Product } from '@common/types/product';
-import { ProductSlider } from '@components/product';
 import Swatch from '../Swatch/Swatch';
 import Slider from '../ProductSlider/Slider';
+import { Choices, getVariant } from '../helpers';
+import { useUI } from '@components/ui/context';
+import useAddItem from '@framework/cart/use-add-item';
 
 interface Props {
     product: Product;
 }
 
-type AvailableChoices = 'color' | 'size' | string;
-
-type Choices = {
-    [P in AvailableChoices]: string;
-};
-
 const ProductView: FC<Props> = ({ product }) => {
     const [choices, setChoices] = useState<Choices>({});
+    const { openSidebar } = useUI();
+    const addItem = useAddItem();
+    const variant = getVariant(product, choices);
+    const addToCart = () => {
+        try {
+            const item = {
+                productId: String(product.id),
+                variantId: variant?.id,
+                variantOptions: variant?.options,
+            };
+            const output = addItem(item);
+            alert(JSON.stringify(output));
+            openSidebar();
+        } catch (error) {}
+    };
     return (
         <Container>
             <div className={cn(s.root, 'fit', 'mb-5')}>
@@ -77,7 +87,7 @@ const ProductView: FC<Props> = ({ product }) => {
                     <div>
                         <Button
                             className={s.button}
-                            onClick={() => alert('add to cart')}
+                            onClick={() => addToCart()}
                         >
                             Add to Cart
                         </Button>

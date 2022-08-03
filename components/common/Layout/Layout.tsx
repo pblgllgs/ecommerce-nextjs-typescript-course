@@ -4,6 +4,7 @@ import { Footer, Navbar } from '@components/common';
 import { CartSidebar } from '@components/cart';
 import { useUI } from '@components/ui/context';
 import { Sidebar } from '@components/ui';
+import { ApiProvider } from '@framework';
 
 interface Props {
     children: ReactNode;
@@ -12,14 +13,16 @@ interface Props {
 const Layout: FC<Props> = ({ children }) => {
     const { isSidebarOpen, closeSidebar } = useUI();
     return (
-        <div className={s.root}>
-            <Navbar />
-            <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar}>
-                <CartSidebar />
-            </Sidebar>
-            <main className="fit">{children}</main>
-            <Footer />
-        </div>
+        <ApiProvider>
+            <div className={s.root}>
+                <Navbar />
+                <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar}>
+                    <CartSidebar />
+                </Sidebar>
+                <main className="fit">{children}</main>
+                <Footer />
+            </div>
+        </ApiProvider>
     );
 };
 

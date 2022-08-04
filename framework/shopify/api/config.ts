@@ -13,7 +13,6 @@ class Config {
 }
 
 const configWrapper = new Config({
-    apiUrl: "https://backend-graphql-shopy.herokuapp.com/graphql",
     fetch: fetchApi,
 })
 

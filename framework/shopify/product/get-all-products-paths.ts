@@ -7,8 +7,8 @@ type ReturnType = {
     products: Pick<Product, "slug">[]
 }
 
-const getAllProductsPaths = async ({ apiUrl, fetch }: ApiConfig): Promise<ReturnType> => {
-    const { data } = await fetch<{ products: ProductConnection }>({ query: getAllProductsPathsQuery, url: apiUrl });
+const getAllProductsPaths = async ({ fetch }: ApiConfig): Promise<ReturnType> => {
+    const { data } = await fetch<{ products: ProductConnection }>({ query: getAllProductsPathsQuery });
     const products = data.products.edges.map(({ node: { handle } }) => {
         return {
             slug: handle

@@ -1,13 +1,28 @@
 import { useAddItem } from '@common/cart'
 import { MutationHook } from '@common/types/hooks'
+import { getCheckoutId } from '@framework/utils'
+import { checkoutLineItemsAddMutation } from '@framework/utils/mutations'
 
 export default useAddItem
 
 export const handler: MutationHook = {
-    fetcher: async ({ fetch, input }) => {
+    fetcherOptions: {
+        query: checkoutLineItemsAddMutation
+    },
+    fetcher: async ({ fetch, options, input }) => {
+
+        const variables = {
+            checkoutId: getCheckoutId(),
+            lineItems: [
+                {
+                    variantId: input.variantId,
+                    quantity: 1
+                }
+            ]
+        }
         const response = await fetch({
-            url: "https://backend-graphql-shopy.herokuapp.com/graphql",
-            query: ` query { hello }`
+            ...options,
+            variables
         })
         return response
 

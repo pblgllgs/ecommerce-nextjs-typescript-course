@@ -9,9 +9,9 @@ import useCart from '@framework/cart/use-cart';
 // import { Button } from '@components/ui';
 
 const CartSidebar: FC = () => {
+    const isEmpty = true;
     const { closeSidebar } = useUI();
     const cart = useCart();
-    const isEmpty = true;
     console.log(cart);
     const rootClass = cn('h-full flex flex-col', {
         'bg-secondary text-secondary': isEmpty,

@@ -18,7 +18,7 @@ const createCheckout = async (fetch: ApiFetcher<{ checkoutCreate: CheckoutCreate
             expires: SHOPIFY_COOKIE_EXPIRE,
         }
         Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE, checkoutId, options)
-        Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl)
+        Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl, options)
     }
     return checkout
 }

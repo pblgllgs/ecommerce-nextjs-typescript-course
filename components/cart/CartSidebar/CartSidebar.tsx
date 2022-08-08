@@ -12,6 +12,7 @@ const CartSidebar: FC = () => {
   const isEmpty = true;
   const { closeSidebar } = useUI();
   const { data } = useCart();
+  
   console.log(data);
   const rootClass = cn('h-full flex flex-col', {
     'bg-secondary text-secondary': isEmpty,

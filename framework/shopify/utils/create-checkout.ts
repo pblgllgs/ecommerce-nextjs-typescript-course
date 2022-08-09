@@ -6,11 +6,14 @@ import { checkoutCreateMutation } from "./mutations";
 import { SHOPIFY_CHECKOUT_URL_COOKIE } from '../const';
 
 
-const createCheckout = async (fetch: ApiFetcher<{ checkoutCreate: CheckoutCreatePayload }>): Promise<Maybe<Checkout | undefined>> => {
+const createCheckout = async (fetch: ApiFetcher<{ checkoutCreate: CheckoutCreatePayload }>): Promise<Checkout> => {
     const { data } = await fetch({
         query: checkoutCreateMutation
     })
     const { checkout } = data.checkoutCreate
+    if(!checkout) {
+        throw new Error("Checkout not created")
+    }
     const checkoutId = checkout?.id
 
     if (checkoutId) {

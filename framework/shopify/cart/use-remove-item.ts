@@ -1,22 +1,47 @@
-import userRemoveItem from '@common/cart/use-remove-item';
+import userRemoveItem, {UseRemoveItem} from '@common/cart/use-remove-item';
+import { Cart } from '@common/types/cart';
+import { MutationHook } from '@common/types/hooks';
+import { CheckoutLineItemsRemovePayload } from '@framework/schema';
+import { checkoutToCart, getCheckoutId } from '@framework/utils';
+import { checkoutLineItemsRemoveMutation } from '@framework/utils/mutations';
+import useCart from './use-cart';
 
-export default userRemoveItem
+export default userRemoveItem as UseRemoveItem<typeof handler>
 
-export const handler = {
+export type RemoveItemDescriptor = {
+    fetcherInput: {
+        id: string
+    },
+    fetcherOutput: {
+        checkoutLineItemsRemove: CheckoutLineItemsRemovePayload
+    },
+    data: Cart
+}
+
+export const handler: MutationHook<RemoveItemDescriptor> = {
     fetcherOptions: {
-        query: "query { hello }"
+        query: checkoutLineItemsRemoveMutation
     },
     async fetcher({
-        input, options, fetch
-    }: any) {
+        input: { id }, options, fetch
+    }) {
+        
         const { data } = await fetch({
-            ...options
+            ...options,
+            variables: {
+                checkoutId: getCheckoutId(),
+                lineItemIds: [id]
+            }
         })
-        return data + "_modified"
+        
+        const cart = checkoutToCart(data.checkoutLineItemsRemove.checkout)
+        return cart
     },
-    useHook: ({ fetch }: any) => () => {
-        return async (input: any) => {
+    useHook: ({ fetch }) => () => {
+        const { mutate: updateCart } = useCart()
+        return async (input) => {
             const data = await fetch(input)
+            await updateCart(data, false)
             return data
         }
     }

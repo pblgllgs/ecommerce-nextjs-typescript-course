@@ -5,7 +5,7 @@ import s from './CartItem.module.css';
 import { Trash, Plus, Minus } from '@components/icons';
 import { LineItem } from '@common/types/cart';
 import { Swatch } from '@components/product';
-// import useRemoveItem from '@framework/cart/use-remove-item';
+import useRemoveItem from '@framework/cart/use-remove-item';
 import { ChangeEvent, useState } from 'react';
 // import useUpdateItem from '@framework/cart/use-update-item';
 
@@ -16,7 +16,7 @@ const CartItem = ({
   item: LineItem;
   currencyCode: string;
 }) => {
-  //   const removeItem = useRemoveItem();
+  const removeItem = useRemoveItem();
   //   const updateItem = useUpdateItem();
 
   //   const [quantity, setQuantity] = useState(item.quantity);
@@ -70,27 +70,27 @@ const CartItem = ({
           </span>
         </Link>
         <div className="flex p-1">
-        {options &&
-          options.length > 0 &&
-          options.map((option) => {
-            const value = option.values[0];
-            return (
-              <Swatch
-                key={`${item.id}-${option.displayName}`}
-                size="sm"
-                onClick={() => {}}
-                label={value.label}
-                color={value.hexColor}
-                variant={option.displayName}
-              ></Swatch>
-              // <span
-              //   key={`${item.id}-${option.displayName}`}
-              //   className="text-sm font-semibold text-accents-7"
-              // >
-              //   {option.values[0].label}
-              // </span>;
-            );
-          })}
+          {options &&
+            options.length > 0 &&
+            options.map((option) => {
+              const value = option.values[0];
+              return (
+                <Swatch
+                  key={`${item.id}-${option.displayName}`}
+                  size="sm"
+                  onClick={() => {}}
+                  label={value.label}
+                  color={value.hexColor}
+                  variant={option.displayName}
+                ></Swatch>
+                // <span
+                //   key={`${item.id}-${option.displayName}`}
+                //   className="text-sm font-semibold text-accents-7"
+                // >
+                //   {option.values[0].label}
+                // </span>;
+              );
+            })}
         </div>
         <div className="flex items-center mt-3">
           <button type="button">
@@ -117,9 +117,10 @@ const CartItem = ({
           {price} {currencyCode}
         </span>
         <button
-          //   onClick={() => {
-          //     removeItem({ id: item.id });
-          //   }}
+          onClick={async () => {
+            // removeItem({ id: item.id });
+            const item = await removeItem('testing input');
+          }}
           className="flex justify-end outline-none"
         >
           <Trash />

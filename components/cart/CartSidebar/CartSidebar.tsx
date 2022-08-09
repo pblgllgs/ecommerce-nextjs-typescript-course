@@ -6,6 +6,7 @@ import useCart from '@framework/cart/use-cart';
 // import useCart from '@framework/cart/use-cart';
 import { LineItem } from '@common/types/cart';
 import CartItem from '../CartItem';
+import { Button } from '@components/ui';
 // import CartItem from '../CartItem';
 // import { Button } from '@components/ui';
 
@@ -51,7 +52,11 @@ const CartSidebar: FC = () => {
             </h2>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
               {data?.lineItems.map((item: LineItem) => (
-                <CartItem key={item.id} item={item} currencyCode={data.currency.code}  />
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  currencyCode={data.currency.code}
+                />
               ))}
             </ul>
           </div>
@@ -80,9 +85,9 @@ const CartSidebar: FC = () => {
                 </span>
               </div>
             </div>
-            {/* <Button Component="a" href="/api/checkout">
-                            Proceed to Checkout
-                        </Button> */}
+            <Button Component="a" href="/">
+              Proceed to Checkout
+            </Button>
           </div>
         </>
       )}

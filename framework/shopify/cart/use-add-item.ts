@@ -5,6 +5,7 @@ import { checkoutToCart, getCheckoutId } from '@framework/utils'
 import { checkoutLineItemsAddMutation } from '@framework/utils/mutations'
 import { CheckoutLineItemsAddPayload } from "@framework/schema"
 import { UseAddItem } from '@common/cart/use-add-item'
+import useCart from '@common/cart/use-cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 
@@ -24,7 +25,6 @@ export const handler: MutationHook<AddItemHookDescriptor> = {
         query: checkoutLineItemsAddMutation
     },
     fetcher: async ({ fetch, options, input }) => {
-
         const variables = {
             checkoutId: getCheckoutId(),
             lineItems: [
@@ -40,11 +40,12 @@ export const handler: MutationHook<AddItemHookDescriptor> = {
         })
         const cart = checkoutToCart(data.checkoutLineItemsAdd.checkout)
         return cart
-
     },
     useHook: ({ fetch }) => () => {
+        const { mutate: updateCart } = useCart()
         return async (input) => {
             const response = await fetch(input)
+            await updateCart(response)
             return response
         }
     }

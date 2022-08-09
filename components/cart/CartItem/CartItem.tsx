@@ -16,33 +16,33 @@ const CartItem = ({
   item: LineItem;
   currencyCode: string;
 }) => {
-//   const removeItem = useRemoveItem();
-//   const updateItem = useUpdateItem();
+  //   const removeItem = useRemoveItem();
+  //   const updateItem = useUpdateItem();
 
-//   const [quantity, setQuantity] = useState(item.quantity);
-  const price = (item.variant.price! * item.quantity) || 0;
+  //   const [quantity, setQuantity] = useState(item.quantity);
+  const price = item.variant.price! * item.quantity || 0;
   const { options } = item;
 
-//   const handleQuantityChange = (val: number) => {
-//     if (Number.isInteger(val) && val >= 0) {
-//       setQuantity(val);
-//       updateItem({
-//         id: item.id,
-//         variantId: item.variantId,
-//         quantity: val,
-//       });
-//     }
-//   };
+  //   const handleQuantityChange = (val: number) => {
+  //     if (Number.isInteger(val) && val >= 0) {
+  //       setQuantity(val);
+  //       updateItem({
+  //         id: item.id,
+  //         variantId: item.variantId,
+  //         quantity: val,
+  //       });
+  //     }
+  //   };
 
-//   const handleQuantity = async (e: ChangeEvent<HTMLInputElement>) => {
-//     const val = Number(e.target.value);
-//     handleQuantityChange(val);
-//   };
+  //   const handleQuantity = async (e: ChangeEvent<HTMLInputElement>) => {
+  //     const val = Number(e.target.value);
+  //     handleQuantityChange(val);
+  //   };
 
-//   const incrementQuantity = async (n = 1) => {
-//     const val = Number(quantity) + n;
-//     handleQuantityChange(val);
-//   };
+  //   const incrementQuantity = async (n = 1) => {
+  //     const val = Number(quantity) + n;
+  //     handleQuantityChange(val);
+  //   };
 
   return (
     <li
@@ -69,26 +69,29 @@ const CartItem = ({
             {item.name}
           </span>
         </Link>
-        {/* <div className="flex p-1"> */}
-          {options &&
-            options.length > 0 &&
-            options.map((option) => 
-            //   const value = option.values[0];
-            //   return (
-            //     <Swatch
-            //       key={`${item.id}-${option.displayName}`}
-            //       size="sm"
-            //       onClick={() => {}}
-            //       label={value.label}
-            //       color={value.hexColor}
-            //       variant={option.displayName}
-            //     ></Swatch>
-              <span key={`${item.id}-${option.displayName}`}
-              className="text-sm font-semibold text-accents-7">
-                {option.values[0].label}
-              </span>
-            )}
-        {/* </div> */}
+        <div className="flex p-1">
+        {options &&
+          options.length > 0 &&
+          options.map((option) => {
+            const value = option.values[0];
+            return (
+              <Swatch
+                key={`${item.id}-${option.displayName}`}
+                size="sm"
+                onClick={() => {}}
+                label={value.label}
+                color={value.hexColor}
+                variant={option.displayName}
+              ></Swatch>
+              // <span
+              //   key={`${item.id}-${option.displayName}`}
+              //   className="text-sm font-semibold text-accents-7"
+              // >
+              //   {option.values[0].label}
+              // </span>;
+            );
+          })}
+        </div>
         <div className="flex items-center mt-3">
           <button type="button">
             <Minus onClick={() => {}} />

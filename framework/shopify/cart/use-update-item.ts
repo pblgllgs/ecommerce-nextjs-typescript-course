@@ -7,8 +7,9 @@ import { checkoutToCart, getCheckoutId } from '@framework/utils';
 import { Cart } from '@common/types/cart';
 import useCart from './use-cart';
 import { checkoutLineItemsUpdateMutation } from '@framework/utils/mutations';
+import { UseUpdateItem } from '@common/cart/use-update-item';
 
-export default useUpdateItem;
+export default useUpdateItem as UseUpdateItem<typeof handler>;
 
 export type UpdateItemDescriptor = {
     fetcherInput: {

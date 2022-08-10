@@ -64,7 +64,10 @@ const normalizeLineItem = ({ node: { id, title, variant, ...rest } }: CheckoutLi
 const normalizeProductImages = ({ edges }: { edges: Array<ImageEdge> }) => {
     return edges.map(({ node: { originalSrc: url, ...rest } }) => {
         return {
-            url: `/images/${url}`,
+            url: process.env.NEXT_PUBLIC_FRAMEWORK ===
+                'shopify_local'
+                ? `/images/${url}`
+                : url ?? "/product-image-placeholder.svg",
             ...rest
         }
     })

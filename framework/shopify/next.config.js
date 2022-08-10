@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    test: "shopify-unique-settings"
+    images: {
+        domains: ['cdn.shopify.com'],
+    }
 };
 
 module.exports = nextConfig;

@@ -3,6 +3,7 @@ import { ProductOption, ProductVariant } from "./product";
 export interface Cart {
     id: string;
     createdAt: string;
+    completedAt: string;
     currency: {
         code: string;
     };

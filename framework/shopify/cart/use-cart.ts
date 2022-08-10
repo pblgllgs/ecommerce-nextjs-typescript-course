@@ -1,16 +1,18 @@
 import useCart, { UseCart } from "@common/cart/use-cart"
+import { useApiProvider } from "@common"
 import { Cart } from "@common/types/cart";
 import { SWRHook } from "@common/types/hooks";
 import { Checkout } from "@framework/schema";
 import { checkoutToCart, createCheckout, getCheckoutQuery } from "@framework/utils";
 import { useMemo } from "react";
+import Cookies from "js-cookie";
 
 export type UseCartHookDescriptor = {
     fetcherInput: {
         checkoutId: string,
     },
     fetcherOutput: {
-        node:Checkout
+        node: Checkout
     },
     data: Cart
 }
@@ -41,12 +43,17 @@ export const handler: SWRHook<UseCartHookDescriptor> = {
         const cart = checkoutToCart(checkout)
         return cart;
     },
-    useHook: ({ useData })=> () => {
+    useHook: ({ useData }) => () => {
+        const { checkoutCookie } = useApiProvider()
         const result = useData({
             swrOptions: {
                 revalidateOnFocus: false
             }
         })
+
+        if(result.data?.completedAt){
+            Cookies.remove(checkoutCookie)
+        }
 
         return useMemo(() => {
             return {

@@ -1,6 +1,6 @@
-import { SHOPIFY_CHECKOUT_URL_COOKIE } from '@framework/const';
 import Cookies from 'js-cookie';
+import { SHOPIFY_CHECKOUT_ID_COOKIE } from '../const';
 
-const getcheckoutIt = () => Cookies.get(SHOPIFY_CHECKOUT_URL_COOKIE);
+const getcheckoutIt = () => Cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE);
 
 export default getcheckoutIt;

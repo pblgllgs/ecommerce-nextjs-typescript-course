@@ -34,6 +34,7 @@ export const handler: MutationHook<AddItemHookDescriptor> = {
                 }
             ]
         }
+        debugger
         const { data } = await fetch({
             ...options,
             variables
